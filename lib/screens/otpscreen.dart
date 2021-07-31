@@ -96,37 +96,37 @@ class _OTPScreenState extends State<OTPScreen> {
       builder: (BuildContext cx) {
         return OTPVerificationAlert(
           openHomeScreen: () {
+            // // //
+            // String? homeScreenWidget;
             // //
-            String? homeScreenWidget;
-            //
-            if (widget.userType == UserType.Customer) {
-              homeScreenWidget = UtilRoutes.customerHomeScreenRoute;
-            } else if (widget.userType == UserType.StoreOwner) {
-              homeScreenWidget = UtilRoutes.storeOwnerCategoryScreenRoute;
-            }
-            // Navigator.pop(cx); // Current Alert
-            // Navigator.pop(context); // Current OTP Screen
+            // if (widget.userType == UserType.Customer) {
+            //   homeScreenWidget = UtilRoutes.customerHomeScreenRoute;
+            // } else if (widget.userType == UserType.StoreOwner) {
+            //   homeScreenWidget = UtilRoutes.storeOwnerCategoryScreenRoute;
+            // }
+            // // Navigator.pop(cx); // Current Alert
+            // // Navigator.pop(context); // Current OTP Screen
+            // // Navigator.popAndPushNamed(context,
+            // //     homeScreenWidget!); // Pops Main Login Screen And Pushes Homescreen
+
+            // Navigator.of(context)
+            //     .popUntil(ModalRoute.withName(UtilRoutes.loginRoute));
             // Navigator.popAndPushNamed(context,
             //     homeScreenWidget!); // Pops Main Login Screen And Pushes Homescreen
 
-            Navigator.of(context)
-                .popUntil(ModalRoute.withName(UtilRoutes.loginRoute));
-            Navigator.popAndPushNamed(context,
-                homeScreenWidget!); // Pops Main Login Screen And Pushes Homescreen
+            if (widget.userType == UserType.Customer) {
+              print("${UtilRoutes.customerHomeScreenRoute}");
+              Navigator.pushNamed(context, UtilRoutes.customerHomeScreenRoute);
+              return;
+            } else if (widget.userType == UserType.StoreOwner) {
+              print("${UtilRoutes.storeOwnerCategoryScreenRoute}");
+              Navigator.pushNamed(
+                  context, UtilRoutes.storeOwnerCategoryScreenRoute);
+              return;
+            }
 
-            // if (widget.userType == UserType.Customer) {
-            //   print("${UtilRoutes.customerHomeScreenRoute}");
-            //   Navigator.pushNamed(context, UtilRoutes.customerHomeScreenRoute);
-            //   return;
-            // } else if (widget.userType == UserType.StoreOwner) {
-            //   print("${UtilRoutes.storeOwnerCategoryScreenRoute}");
-            //   Navigator.pushNamed(
-            //       context, UtilRoutes.storeOwnerCategoryScreenRoute);
-            //   return;
-            // }
-
-            // Navigator.popAndPushNamed(
-            //     context, UtilRoutes.customerHomeScreenRoute);
+            Navigator.popAndPushNamed(
+                context, UtilRoutes.customerHomeScreenRoute);
           },
         );
       },
