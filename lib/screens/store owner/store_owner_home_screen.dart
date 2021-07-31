@@ -150,7 +150,7 @@ class _StoreOwnerHomeScreenState extends State<StoreOwnerHomeScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
+        elevation: 8,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
         // backgroundColor: UtilTheme.productColor,

@@ -256,8 +256,9 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
+        elevation: 8,
         showUnselectedLabels: true,
+
         type: BottomNavigationBarType.fixed,
         // backgroundColor: UtilTheme.productColor,
         currentIndex: 0, // this will be set when a new tab is tapped
