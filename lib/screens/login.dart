@@ -3,6 +3,7 @@ import 'package:productdotio/screens/otpscreen.dart';
 import 'package:productdotio/utilities/user_type.dart';
 
 import 'package:productdotio/utilities/theme.dart' as UtilTheme;
+import "package:productdotio/widgets/network_image.dart" as NI;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -29,103 +30,115 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: UtilTheme.productColor,
-      body: Align(
-        alignment: Alignment.bottomCenter,
-        child: DraggableScrollableSheet(
-          maxChildSize: 1,
-          minChildSize: 0.7,
-          initialChildSize: 0.7,
-          expand: false,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                ),
-              ),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              if (_currentPage != 0) {
-                                print("Animating");
-                                openPageWithIndex(index: 0);
-                              }
-                              print("Current Index - $_currentPage");
-                            },
-                            child: Center(
-                              child: Text(
-                                "Customer",
-                                style: UtilTheme.textstyle_16_Black,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              if (_currentPage != 1) {
-                                print("Animating");
-                                openPageWithIndex(index: 1);
-                              }
-                              print("Current Index - $_currentPage");
-                            },
-                            child: Center(
-                              child: Text(
-                                "Store Owner",
-                                style: UtilTheme.textstyle_16_Black,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: NI.NetworkImage(
+              imageURL:
+                  "https://mcusercontent.com/684a1e8f3314aac0603b688a8/images/956ccee5-09dc-2bcf-c923-c02d65777dc9.png",
+            ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: DraggableScrollableSheet(
+              maxChildSize: 1,
+              minChildSize: 0.7,
+              initialChildSize: 0.7,
+              expand: false,
+              builder:
+                  (BuildContext context, ScrollController scrollController) {
+                return Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(20),
                     ),
                   ),
-                  Row(
+                  child: Column(
                     children: [
-                      AnimatedContainer(
-                        duration: _animationDuration,
-                        width: MediaQuery.of(context).size.width / 2,
-                        height: 5,
-                        color: (_currentPage == 0)
-                            ? UtilTheme.productColor
-                            : UtilTheme.whiteColor,
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (_currentPage != 0) {
+                                    print("Animating");
+                                    openPageWithIndex(index: 0);
+                                  }
+                                  print("Current Index - $_currentPage");
+                                },
+                                child: Center(
+                                  child: Text(
+                                    "Customer",
+                                    style: UtilTheme.textstyle_16_Black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (_currentPage != 1) {
+                                    print("Animating");
+                                    openPageWithIndex(index: 1);
+                                  }
+                                  print("Current Index - $_currentPage");
+                                },
+                                child: Center(
+                                  child: Text(
+                                    "Store Owner",
+                                    style: UtilTheme.textstyle_16_Black,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      AnimatedContainer(
-                        duration: _animationDuration,
-                        height: 5,
-                        width: MediaQuery.of(context).size.width / 2,
-                        color: (_currentPage == 1)
-                            ? UtilTheme.productColor
-                            : UtilTheme.whiteColor,
+                      Row(
+                        children: [
+                          AnimatedContainer(
+                            duration: _animationDuration,
+                            width: MediaQuery.of(context).size.width / 2,
+                            height: 5,
+                            color: (_currentPage == 0)
+                                ? UtilTheme.productColor
+                                : UtilTheme.whiteColor,
+                          ),
+                          AnimatedContainer(
+                            duration: _animationDuration,
+                            height: 5,
+                            width: MediaQuery.of(context).size.width / 2,
+                            color: (_currentPage == 1)
+                                ? UtilTheme.productColor
+                                : UtilTheme.whiteColor,
+                          ),
+                        ],
+                      ),
+                      Expanded(
+                        child: PageView.builder(
+                            controller: _pageController,
+                            onPageChanged: (index) {
+                              setState(() {
+                                _currentPage = index;
+                              });
+                            },
+                            itemCount: 2,
+                            itemBuilder: (context, index) =>
+                                PageViewScreen(currentPage: _currentPage)),
                       ),
                     ],
                   ),
-                  Expanded(
-                    child: PageView.builder(
-                        controller: _pageController,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _currentPage = index;
-                          });
-                        },
-                        itemCount: 2,
-                        itemBuilder: (context, index) =>
-                            PageViewScreen(currentPage: _currentPage)),
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

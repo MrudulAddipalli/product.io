@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         fontFamily: 'Quicksand',
       ),
-      initialRoute: UtilRoutes.customerHomeScreenRoute,
+      initialRoute: UtilRoutes.loginRoute,
       // home: LoginScreen(),
       routes: {
         UtilRoutes.loginRoute: (_) => LoginScreen(),

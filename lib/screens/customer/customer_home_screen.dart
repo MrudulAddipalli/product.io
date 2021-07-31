@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:productdotio/models/category.dart';
 import 'package:productdotio/models/store.dart';
+import 'package:productdotio/screens/profile.dart';
 
 import 'package:productdotio/utilities/page_route_constants.dart' as UtilRoutes;
 import 'package:productdotio/utilities/theme.dart' as UtilTheme;
@@ -15,6 +16,7 @@ class CustomerHomeScreen extends StatefulWidget {
 }
 
 class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
+  int _currentIndex = 0;
   List<Store> _store = [
     Store(
       id: 1,
@@ -110,155 +112,168 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
     return Scaffold(
       backgroundColor: Color(0xFFEFEEEE),
       // appBar: AppBar(title: Text("Start Creating Your Store")),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(height: 10),
-              SearchAppBar(hintText: "Search Products/Stores"),
-              SizedBox(height: 15),
+      body: (_currentIndex != 0)
+          ? Profile()
+          : SingleChildScrollView(
+              child: SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 10),
+                    SearchAppBar(hintText: "Search Products/Stores"),
+                    SizedBox(height: 15),
 
-              ///
-              ///
+                    ///
+                    ///
 
-              ///
+                    ///
 
-              ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: _store.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return Container(
-                    margin: const EdgeInsets.all(10),
-                    child: LayoutBuilder(
-                      builder: (BuildContext ctx, BoxConstraints constraints) {
-                        return Stack(
-                          children: [
-                            Container(
-                              height: 160,
-                              width: constraints.maxWidth,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: NI.NetworkImage(
-                                  imageURL: "${_store[index].storeImageURL}",
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 70,
-                              width: constraints.maxWidth,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: UtilTheme.transperantBlackColor,
-                              ),
-                              // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: _store.length,
+                      itemBuilder: (BuildContext ctx, index) {
+                        return Container(
+                          margin: const EdgeInsets.all(10),
+                          child: LayoutBuilder(
+                            builder:
+                                (BuildContext ctx, BoxConstraints constraints) {
+                              return Stack(
                                 children: [
                                   Container(
-                                    width: constraints.maxWidth / 3,
-                                    height: 3,
-                                    color: UtilTheme.productColor,
-                                    margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                                  ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                    child: Text(
-                                      "${_store[index].storeName}",
-                                      style: UtilTheme.textstyle_20_White,
+                                    height: 160,
+                                    width: constraints.maxWidth,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: NI.NetworkImage(
+                                        imageURL:
+                                            "${_store[index].storeImageURL}",
+                                      ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                    child: Row(
+                                  Container(
+                                    height: 70,
+                                    width: constraints.maxWidth,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: UtilTheme.transperantBlackColor,
+                                    ),
+                                    // margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Expanded(
+                                        Container(
+                                          width: constraints.maxWidth / 3,
+                                          height: 3,
+                                          color: UtilTheme.productColor,
+                                          margin:
+                                              EdgeInsets.fromLTRB(10, 10, 0, 0),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 0, 10, 0),
                                           child: Text(
-                                            "${_store[index].storeAddress}",
-                                            style: UtilTheme.textstyle_white,
+                                            "${_store[index].storeName}",
+                                            style: UtilTheme.textstyle_20_White,
                                           ),
                                         ),
-                                        Spacer(),
-                                        Flexible(
-                                          child: Container(
-                                            margin:
-                                                EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                ...List.generate(
-                                                  5,
-                                                  (index) => Icon(
-                                                    Icons.star,
-                                                    size: 14,
-                                                    color:
-                                                        UtilTheme.productColor,
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              10, 5, 10, 0),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  "${_store[index].storeAddress}",
+                                                  style:
+                                                      UtilTheme.textstyle_white,
+                                                ),
+                                              ),
+                                              Spacer(),
+                                              Flexible(
+                                                child: Container(
+                                                  margin: EdgeInsets.fromLTRB(
+                                                      0, 0, 5, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      ...List.generate(
+                                                        5,
+                                                        (index) => Icon(
+                                                          Icons.star,
+                                                          size: 14,
+                                                          color: UtilTheme
+                                                              .productColor,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              //
+                                              Text(
+                                                "${_store[index].storeRatings}",
+                                                style: UtilTheme.textstyle_15,
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        //
-                                        Text(
-                                          "${_store[index].storeRatings}",
-                                          style: UtilTheme.textstyle_15,
-                                        ),
+                                        )
                                       ],
                                     ),
-                                  )
+                                  ),
+                                  // favourite
+                                  Positioned(
+                                    right: 15,
+                                    top: 10,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        print("Favorate");
+                                        _markFav(itemIndex: index);
+                                      },
+                                      child: Container(
+                                        height: 25,
+                                        width: 25,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.white,
+                                        ),
+                                        child: Icon(
+                                          (_store[index].isfavourite)
+                                              ? Icons.favorite_sharp
+                                              : Icons.favorite_border_outlined,
+                                          size: 15,
+                                          color: (_store[index].isfavourite)
+                                              ? Color(0xffE90000)
+                                              : null,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
                                 ],
-                              ),
-                            ),
-                            // favourite
-                            Positioned(
-                              right: 15,
-                              top: 10,
-                              child: GestureDetector(
-                                onTap: () {
-                                  print("Favorate");
-                                  _markFav(itemIndex: index);
-                                },
-                                child: Container(
-                                  height: 25,
-                                  width: 25,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: Icon(
-                                    (_store[index].isfavourite)
-                                        ? Icons.favorite_sharp
-                                        : Icons.favorite_border_outlined,
-                                    size: 15,
-                                    color: (_store[index].isfavourite)
-                                        ? Color(0xffE90000)
-                                        : null,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
-                  );
-                },
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
         elevation: 8,
         showUnselectedLabels: true,
-
         type: BottomNavigationBarType.fixed,
         // backgroundColor: UtilTheme.productColor,
         currentIndex: 0, // this will be set when a new tab is tapped

@@ -97,36 +97,36 @@ class _OTPScreenState extends State<OTPScreen> {
         return OTPVerificationAlert(
           openHomeScreen: () {
             // //
-            // String? homeScreenWidget;
-            // //
-            // if (widget.userType == UserType.Customer) {
-            //   homeScreenWidget = UtilRoutes.customerHomeScreenRoute;
-            // } else if (widget.userType == UserType.StoreOwner) {
-            //   homeScreenWidget = UtilRoutes.storeOwnerCategoryScreenRoute;
-            // }
-            // // Navigator.pop(cx); // Current Alert
-            // // Navigator.pop(context); // Current OTP Screen
-            // // Navigator.popAndPushNamed(context,
-            // //     homeScreenWidget!); // Pops Main Login Screen And Pushes Homescreen
-
-            // Navigator.of(context)
-            //     .popUntil(ModalRoute.withName(UtilRoutes.loginRoute));
+            String? homeScreenWidget;
+            //
+            if (widget.userType == UserType.Customer) {
+              homeScreenWidget = UtilRoutes.customerHomeScreenRoute;
+            } else if (widget.userType == UserType.StoreOwner) {
+              homeScreenWidget = UtilRoutes.storeOwnerCategoryScreenRoute;
+            }
+            // Navigator.pop(cx); // Current Alert
+            // Navigator.pop(context); // Current OTP Screen
             // Navigator.popAndPushNamed(context,
             //     homeScreenWidget!); // Pops Main Login Screen And Pushes Homescreen
 
-            if (widget.userType == UserType.Customer) {
-              print("${UtilRoutes.customerHomeScreenRoute}");
-              Navigator.pushNamed(context, UtilRoutes.customerHomeScreenRoute);
-              return;
-            } else if (widget.userType == UserType.StoreOwner) {
-              print("${UtilRoutes.storeOwnerCategoryScreenRoute}");
-              Navigator.pushNamed(
-                  context, UtilRoutes.storeOwnerCategoryScreenRoute);
-              return;
-            }
+            Navigator.of(context)
+                .popUntil(ModalRoute.withName(UtilRoutes.loginRoute));
+            Navigator.popAndPushNamed(context,
+                homeScreenWidget!); // Pops Main Login Screen And Pushes Homescreen
 
-            Navigator.popAndPushNamed(
-                context, UtilRoutes.customerHomeScreenRoute);
+            // if (widget.userType == UserType.Customer) {
+            //   print("${UtilRoutes.customerHomeScreenRoute}");
+            //   Navigator.pushNamed(context, UtilRoutes.customerHomeScreenRoute);
+            //   return;
+            // } else if (widget.userType == UserType.StoreOwner) {
+            //   print("${UtilRoutes.storeOwnerCategoryScreenRoute}");
+            //   Navigator.pushNamed(
+            //       context, UtilRoutes.storeOwnerCategoryScreenRoute);
+            //   return;
+            // }
+
+            // Navigator.popAndPushNamed(
+            //     context, UtilRoutes.customerHomeScreenRoute);
           },
         );
       },
@@ -220,10 +220,12 @@ class _OTPScreenState extends State<OTPScreen> {
                         focusNode: _pinPutFocusNode1,
                         controller: _pinPutController1,
                         submittedFieldDecoration: _pinPutDecoration.copyWith(
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                         selectedFieldDecoration: _pinPutDecoration,
                         followingFieldDecoration: _pinPutDecoration.copyWith(
+                          color: UtilTheme.productColor,
                           borderRadius: BorderRadius.circular(5.0),
                           border: Border.all(
                             color: UtilTheme.productColor,
